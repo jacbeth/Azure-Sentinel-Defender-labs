@@ -16,11 +16,22 @@ SIEM: Microsoft Sentinel
 
 Portal: Microsoft Defender (security.microsoft.com)
 
-Log Analytics Workspace : LAW-security-labs
+Log Analytics Workspace : LAW-Security-labs
 
 Region: UK South
 
 Retention: 30 days
+
+## Log Flow
+
+Security Data Sources
+(Microsoft Entra ID, Defender XDR, Azure Activity)
+↓
+Log Analytics Workspace (LAW-Security-labs)
+↓
+Microsoft Sentinel
+↓
+Analytics Rules → Incidents → SOC Investigation
 
 
 
@@ -98,13 +109,14 @@ NB: Templates do not generate incidents until they are converted into active rul
 
 ## Step 6 — Access Control (RBAC)
 
-Role‑based access control was configured to support realistic SOC operations:
+Access Control (IAM) was configured on the Log Analytics Workspace
+to assign least-privilege permissions for  analysts.
 
-• 	Sentinel Contributor
-• 	Log Analytics Reader
-• 	Security Reader
+Roles assigned:
 
-This ensures analysts can investigate incidents without requiring full administrative access.
+Sentinel Contributor – manage detection and incident workflows
+Log Analytics Reader – query and analyse security logs
+Security Reader – view security alerts and posture
 
 ## Step 7 — Workspace Health Validation
 
@@ -116,18 +128,15 @@ union SigninLogs, AuditLogs, AzureActivity
 
 This verifies that all connected data sources are actively sending logs.
 
-## Results
-
-* Enabled detection logic
-* Generated malicious behaviour
-* Caused Sentinel to detect it
-
 
 ## Lessons Learned
 
 * Data connectors must be configured before rule templates appear.
 * Content Hub installation is required to populate detection logic.
-* Microsoft Sentinel has transitioned from Azure Portal to Microsoft Defender portal. 
+* Microsoft Sentinel has transitioned from Azure Portal to Microsoft Defender portal.
 
-This lab establishes the foundational SIEM infrastructure. 
+
+
+This lab establishes the foundational SIEM infrastructure.
 Subsequent labs will focus on detection engineering, incident investigation, threat hunting, and automated response using Microsoft Sentinel.
+
