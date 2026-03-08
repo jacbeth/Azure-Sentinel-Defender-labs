@@ -24,7 +24,7 @@ StorageBlobLogs
 | sort by TimeGenerated desc
 | take 20
 
-![alt text](image.png)
+![Log Query Results](./screenshots/4-log-query-results.png)
 
 ### SOC Visibility Improvement
 
