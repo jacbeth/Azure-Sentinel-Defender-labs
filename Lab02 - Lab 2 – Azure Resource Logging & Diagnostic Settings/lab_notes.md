@@ -48,17 +48,6 @@ After enabling diagnostic settings, the SIEM environment now ingests:
 
 This significantly improves the detection capabilities of the SOC environment.
 
-## Example Threat Hunting Query
-
-The following Kusto Query Language query was used to detect potential abnormal download activity from Azure Storage.
-StorageBlobLogs
-| where OperationName == "GetBlob"
-| summarize DownloadCount = count() by CallerIpAddress, bin(TimeGenerated, 15m)
-| where DownloadCount > 2
-| sort by DownloadCount desc
-
-This query identifies possible data exfiltration attempts by detecting numbers of file downloads from a single IP address (DownloadCount would be higher in real world environment).
-
 ### Operational Considerations
 
 Diagnostic logging increases data ingestion into the Log Analytics Workspace, which can affect cost and retention settings in production environments. For lab environments, log volume is usually minimal.
