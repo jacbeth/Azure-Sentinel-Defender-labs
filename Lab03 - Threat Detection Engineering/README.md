@@ -5,27 +5,26 @@ Azure Storage is a high‑value target for attackers due to its use for backups,
 The goal is to simulate detection work by analysing blob access logs, identifying anomalies, and building detections aligned with MITRE ATT&CK.
 
 ## Data Sources
-This lab primarily uses StorageBlobLogs, but also incorporates AzureActivity to provide visibility into control‑plane operations such as SAS token creation, key regeneration, and network rule changes. Including both sources reflects real SOC workflows, where analysts correlate data across multiple log types.
+This lab primarily uses StorageBlobLogs, but also incorporates AzureActivity to provide visibility into control‑plane operations such as SAS token creation, key regeneration, and network rule changes. 
 
 ### StorageBlobLogs  
 Contains operational logs for blob access, including:
 
-Blob downloads (GetBlob)
-Blob deletions (DeleteBlob)
-Authentication type (Key, OAuth, SAS)
-Caller IP address
-URI and container information
+- Blob downloads (GetBlob)
+- Blob deletions (DeleteBlob)
+- Authentication type (Key, OAuth, SAS)
+- Caller IP address
+- URI and container information
 
 ### Additional Log Source - AzureActivity  
 Captures control‑plane operations such as:
 
-SAS token creation
-Storage account key regeneration
-Network rule modifications
-Role assignments and permission changes
+- SAS token creation
+- Storage account key regeneration
+- Network rule modifications
+- Role assignments and permission changes
 
 These events are critical for identifying attacker attempts to weaken storage security or establish persistence.
-
 
 🔍 Detection 1 — Repeated Blob Downloads from the Same IP
 
@@ -116,23 +115,6 @@ Blob deletions may indicate:
 
 Technique: Data Destruction (T1485)
 
-🧩 Correlation Example — AzureActivity + Blob Logs
-Although not a full detection, this correlation demonstrates how SOC analysts combine logs:
-
-AzureActivity
-| where OperationNameValue == "MICROSOFT.STORAGE/STORAGEACCOUNTS/REGENERATEKEY/ACTION"
-| join kind=inner (
-    StorageBlobLogs
-    | where OperationName == "GetBlob"
-) on StorageAccountName
-| project TimeGenerated, CallerIpAddress, OperationName, ActivityStatus, Uri
-This helps identify scenarios where:
-
-A key was regenerated
-Followed by unusual blob access
-From an unexpected IP
-A classic sign of compromised admin credentials.
-
 📌 Findings
 - Repeated downloads from a single IP
 - SAS token usage from unexpected locations
@@ -144,7 +126,6 @@ A classic sign of compromised admin credentials.
 I gained hands‑on experience with:
 
 Analysing Azure Storage access logs
-Correlating operational and control‑plane logs
 Building behavioural detections using KQL
 Mapping detections to MITRE ATT&CK
 Understanding blob access patterns and risks
