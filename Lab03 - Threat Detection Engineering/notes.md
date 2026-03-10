@@ -97,19 +97,19 @@ StorageBlobLogs
 
 #### Execution Evidence
 
-![detection2](./screenshots/5-detection2-query-results)
+![detection2](./screenshots/6-detection2-query-results.png)
 
 
 #### Findings
 External IPs accessed blobs - 92.40.169.164 and 195.149.13.240
-Results were as expected and triggerd by blob access multiple times on my home network
+Results were as expected and triggered by accessing blob multiple times on my home network
 
 #### Commentary
 Unexpected IPs are a strong indicator of credential compromise, SAS token leakage, or external reconnaissance. This detection becomes extremely powerful when enriched with geo‑location or threat intelligence feeds.
 
 MITRE Mapping
-Tactic	                Technique
-Initial Access (TA0001)	Valid Accounts (T1078)
+Tactic - Initial Access (TA0001)    
+Technique - Valid Accounts (T1078)
 
 
 ## 🔍 Detection 3 — Blob Access Using SAS Tokens
@@ -124,9 +124,9 @@ StorageBlobLogs
     by CallerIpAddress, bin(TimeGenerated, 1h)
 
 #### Explanation
-Filters for operations authenticated via SAS
-Counts SAS‑based access per IP per hour
-Captures a sample of accessed blob URIs
+- Filters for operations authenticated via SAS
+- Counts SAS‑based access per IP per hour
+- Captures a sample of accessed blob URIs
 
 #### Execution Evidence
 Add screenshots:
