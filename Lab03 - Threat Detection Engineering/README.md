@@ -26,46 +26,6 @@ Role assignments and permission changes
 
 These events are critical for identifying attacker attempts to weaken storage security or establish persistence.
 
-flowchart TD
-
-    A[Azure Storage<br>(Blobs, Containers, Files)]
-
-    subgraph DataPlane[Data Plane Logs]
-        B[StorageBlobLogs<br>- GetBlob / DeleteBlob<br>- Caller IP<br>- Auth Type]
-    end
-
-    subgraph ControlPlane[Control Plane Logs]
-        C[AzureActivity<br>- SAS Token Creation<br>- Key Regeneration<br>- Network Rule Changes]
-    end
-
-    A --> B
-    A --> C
-
-    B --> D[Microsoft Sentinel<br>(Log Analytics Workspace)]
-    C --> D
-
-    subgraph Detections[Behavioural Detections (This Lab)]
-        E1[1. Repeated Blob Downloads]
-        E2[2. Unusual IP Access]
-        E3[3. SAS Token Usage]
-        E4[4. Blob Deletions]
-    end
-
-    D --> E1
-    D --> E2
-    D --> E3
-    D --> E4
-
-    subgraph Correlation[Correlation Opportunities]
-        F1[Blob Access After Key Regeneration]
-        F2[SAS Creation + Blob Activity]
-        F3[External IP + DeleteBlob]
-    end
-
-    D --> F1
-    D --> F2
-    D --> F3
-
 
 🔍 Detection 1 — Repeated Blob Downloads from the Same IP
 
