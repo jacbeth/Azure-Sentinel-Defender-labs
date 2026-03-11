@@ -36,13 +36,13 @@ AzureActivity
 #### Location
 Microsoft Sentinel → Logs, left side panel shows every table currently available in the Log Analytics workspace.
 
-#### Screenshot
+#### Tableslist
 ![Tables](./screenshots/3-tableslist.png)
 
 Both tables appear in the workspace: StorageBlobLogs and AzureActivity. This validates that the environment is ready for detection engineering.
 
 ## 🔍 Detection 1 — Repeated Blob Downloads from the Same IP
-### Summary
+
 Detects repeated blob downloads from the same IP address within a 15‑minute window. High‑frequency access may indicate automation, credential misuse, or early‑stage data exfiltration.
 
 KQL Query:
@@ -53,30 +53,29 @@ StorageBlobLogs
 | where DownloadCount > 25
 | sort by DownloadCount desc
 
-#### Explanation
+### Explanation
 - Filters for blob download operations (GetBlob)
 - Groups events by IP in 15‑minute bins
 - Flags any IP performing more than 25 downloads
 - Sorts results to highlight the most active IPs
 
-#### Execution Evidence
+### Execution Evidence
 
-Query execution/results
+#### Query execution/results
 ![query_results](./screenshots/4-detection1-query-results.png)
 
-
-#### Findings
+### Findings
 IPs exceeded threshold 92.40.169.163. This was expected as the result of simulated attack.
 
-#### Commentary
+### Commentary
 A sudden spike in blob downloads is a classic early indicator of data harvesting. Attackers often begin by quietly pulling data before escalating. 
 
-MITRE Mapping
-Tactic              	Technique
-Exfiltration (TA0010)	Exfiltration Over Web Services (T1567)
+### MITRE Mapping
+Tactic - Exfiltration (TA0010) 	Technique -Exfiltration Over Web Services (T1567)
+	
 
 ## 🔍 Detection 2 — Blob Access from Unusual or Non‑Corporate IP Ranges
-### Summary
+
 Detects blob access originating from IP addresses outside expected private or corporate ranges.
 
 KQL Query:
@@ -89,31 +88,30 @@ StorageBlobLogs
 | summarize AccessCount = count() by CallerIpAddress, bin(TimeGenerated, 1h)
 | where AccessCount > 0
 
-#### Explanation
+### Explanation
 - Filters for blob downloads
 - Excludes RFC1918 private IP ranges
 - Groups access by IP per hour
 - Surfaces any external IP performing blob access
 
-#### Execution Evidence
+### Execution Evidence
 
+#### Query execution/results
 ![detection2](./screenshots/6-detection2-query-results.png)
 
-
-#### Findings
+### Findings
 External IPs accessed blobs - 92.40.169.164 and 195.149.13.240
 Results were as expected and triggered by accessing blob multiple times on my home network
 
-#### Commentary
+### Commentary
 Unexpected IPs are a strong indicator of credential compromise, SAS token leakage, or external reconnaissance. This detection becomes extremely powerful when enriched with geo‑location or threat intelligence feeds.
 
-MITRE Mapping
-Tactic - Initial Access (TA0001)    
-Technique - Valid Accounts (T1078)
+### MITRE Mapping
+Tactic - Initial Access (TA0001)  Technique - Valid Accounts (T1078)
 
 
 ## 🔍 Detection 3 — Blob Access Using SAS Tokens
-### Summary
+
 Identifies blob access authenticated using SAS tokens. SAS tokens are high‑risk if leaked because they grant scoped access without requiring credentials.
 
 KQL Query:
@@ -123,32 +121,38 @@ StorageBlobLogs
 | summarize SASAccessCount = count(), Blobs = make_set(Uri, 5)
     by CallerIpAddress, bin(TimeGenerated, 1h)
 
-#### Explanation
+### Explanation
 - Filters for operations authenticated via SAS
 - Counts SAS‑based access per IP per hour
 - Captures a sample of accessed blob URIs
 
-#### Execution Evidence
-Add screenshots:
+### Execution Evidence
 
-SAS token generation (from earlier lab step)
+#### Query execution/results
+![detection3](./screenshots/7-detection3-query-results.png)
 
-Query execution
 
-Results showing SAS‑based access
+### 🧾 Findings
+SAS authenticated access was successfully detected in StorageBlobLogs, confirming that diagnostic settings and log ingestion are functioning correctly. 
+All SAS activity originated from the same public IP address (92.40.169.164), with different ephemeral ports. This indicates the access came from a single machine. Multiple blob operations were performed, with SASAccessCount values ranging from 1 to 65 per hour‑bucketed entry.
 
-#### Findings
-Record which IPs used SAS tokens and whether the usage aligns with expected behaviour.
+### Accessed blobs included:
 
-#### Commentary
-SAS tokens are powerful and dangerous. They bypass identity‑based controls and can be leaked through URLs, logs, or misconfigured applications. Any unexpected SAS usage should be treated as a potential incident.
+- security2container?restype=container&comp=list (container listing)
+- 1-Diagnostic-setting-configuration...
+- 3-Storage-Activity?comp=tags...
 
-MITRE Mapping
-Tactic	Technique
-Defense Evasion (TA0005)	Use of Credentials (T1550)
+The presence of container listing operations (comp=list) confirms that the SAS token allowed enumeration of container contents. No unexpected IP addresses or suspicious geographic anomalies were observed. All activity aligns with the expected behaviour of a controlled SAS token test.
+
+### Commentary
+The results show a clear pattern of SAS token usage from a single client machine. The repeated access counts (e.g., 39, 64, 65 operations) are consistent with intentional testing, such as repeatedly downloading blobs or refreshing SAS URLs. The fact that the same IP appears with different source ports is normal — each HTTP request uses a new ephemeral port. This confirms the activity is legitimate and not indicative of distributed or automated external scanning.
+
+### MITRE Mapping 
+Tactic: Defense Evasion (TA0005) Technique: Use of Credentials (T1550)
+	
 
 ## 🔍 Detection 4 — Blob Deletions (DeleteBlob)
-Summary
+
 Detects blob deletions, which may indicate destructive behaviour or cleanup after exfiltration.
 
 KQL Query:
