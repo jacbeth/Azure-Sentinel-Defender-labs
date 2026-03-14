@@ -1,6 +1,3 @@
-
----
-
 ## 📓 Lab 3: Threat Detection Notes 
 
 These notes document the execution of Lab 3, including screenshots, observations, and commentary.
@@ -34,17 +31,17 @@ AzureActivity
 | limit 10
 ```
 
-### Screenshot
-StorageBlobLogs verification
+### Screenshots
+##### StorageBlobLogs verification
 ![blob-verification](./screenshots/1-storagebloblogs-query.png)
 
-AzureActivity verification
+##### AzureActivity verification
 ![azureactivity-verification](./screenshots/2-azureactivity-query.png)
 
-Both tables appeared in the workspace, confirming the environment was ready for detection engineering.
+##### Both tables appeared in the workspace, confirming the environment was ready for detection engineering.
 ![tables-in -workspace](./screenshots/3-tableslist.png)
 
-3. Detection 1 — Repeated Blob Downloads
+## 3. Detection 1 — Repeated Blob Downloads
 Detects repeated blob downloads from the same IP within a 15‑minute window.
 
 ## Findings:  
@@ -74,7 +71,7 @@ Initial Access (TA0001)
 
 Valid Accounts (T1078)
 
-5. Detection 3 — Blob Access Using SAS Tokens
+## 5. Detection 3 — Blob Access Using SAS Tokens
 Identifies blob access authenticated using SAS tokens.
 
 ## Findings:
