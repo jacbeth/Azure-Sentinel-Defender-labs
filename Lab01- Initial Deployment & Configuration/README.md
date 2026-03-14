@@ -116,7 +116,7 @@ KQL query used to validate ingestion:
 union SigninLogs, AuditLogs, AzureActivity
 | summarize LastEvent = max(TimeGenerated) by Type
 
-🧠 Lessons Learned
+```🧠 Lessons Learned
 - Data connectors must be configured before rule templates appear
 - Content Hub installation is required for detection logic
 - Sentinel management has transitioned to the Microsoft Defender portal
