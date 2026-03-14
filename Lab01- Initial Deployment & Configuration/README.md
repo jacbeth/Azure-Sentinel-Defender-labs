@@ -115,3 +115,10 @@ KQL query used to validate ingestion:
 ```kql
 union SigninLogs, AuditLogs, AzureActivity
 | summarize LastEvent = max(TimeGenerated) by Type
+
+🧠 Lessons Learned
+- Data connectors must be configured before rule templates appear
+- Content Hub installation is required for detection logic
+- Sentinel management has transitioned to the Microsoft Defender portal
+
+This lab establishes the core SIEM infrastructure for future detection engineering and incident response labs
