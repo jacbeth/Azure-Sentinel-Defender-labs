@@ -1,58 +1,43 @@
-## Lab 2 - Notes
+# Notes – Azure Resource Logging & Diagnostic Settings
 
-### Purpose of Diagnostic Settings
+## 1. Purpose of Diagnostic Settings
+Many Azure services do **not** automatically send logs to Microsoft Sentinel.  
+Diagnostic settings act as the pipeline that forwards **resource‑level logs** into the monitoring environment.
 
-Many Azure services do not automatically send logs to Microsoft Sentinel. Diagnostic settings act as the pipeline that forwards resource logs into the monitoring environment. Without diagnostic settings enabled, infrastructure activity may not be visible.
+Without diagnostic settings enabled, infrastructure activity such as storage access, VM operations, or Key Vault usage may remain invisible to the SOC.
 
-### Log Sources Enabled
+---
 
-The following Azure resource logs were configured and forwarded to the Log Analytics Workspace for analysis within Microsoft Sentinel: Azure Storage Blob service logs (StorageBlobLogs)
+## 2. Log Sources Enabled
+The following Azure resource logs were configured and forwarded to the Log Analytics Workspace:
 
-These logs capture operations such as:
+### **Azure Storage – Blob Service Logs (StorageBlobLogs)**  
+These logs capture:
+- Blob uploads  
+- Blob downloads  
+- Blob deletions  
+- Client IP addresses  
+- Operation timestamps  
 
-- blob uploads
-- blob downloads
-- blob deletions
-- client IP addresses
-- operation timestamps
+This telemetry supports detection of suspicious file access patterns and potential data exfiltration attempts.
 
-### Diagnostic Settings Configuration
-The screenshot below shows the diagnostic setting applied to the Blob service of the storage account, confirming that logs are being forwarded to the LAW‑Security‑labs Log Analytics workspace.
+---
+
+## 3. Diagnostic Settings Configuration
+The screenshot below shows the diagnostic setting applied to the **Blob service** of the storage account, confirming that logs are being forwarded to the **LAW‑Security‑labs** workspace.
 
 ![Blob Diagnostic Setting](./screenshots/1-Diagnostic-setting-configuration.png)
 
-
-This telemetry allows monitoring for suspicious file access patterns such as abnormal download activity or potential data exfiltration. NB $logs is reserved for system log files.
-
-The screenshot below shows the diagnostic settings applied to the storage account, confirming that Storage and Blob logging were successfully enabled while other services (Queue, Table, File) remain disabled for this lab.
+A second screenshot confirms that **Storage** and **Blob** logging were successfully enabled, while other services (Queue, Table, File) remain disabled for this lab.
 
 ![Diagnostic Settings](./screenshots/2-Diagnostic-setting-enabled.png)
 
-Below is an example query confirming that StorageBlobLogs are being successfully ingested into the workspace:
+---
 
+## 4. Log Ingestion Validation
+The following KQL query was used to confirm that StorageBlobLogs were successfully ingested:
+
+```kql
 StorageBlobLogs
 | sort by TimeGenerated desc
 | take 20
-
-![Log Query Results](./screenshots/4-log-query-results.png)
-
-This output shows recent blob‑related operations such as GetBlobProperties and GetContainerProperties, confirming that StorageBlobLogs are being successfully ingested.
-
-### SOC Visibility Improvement
-
-After enabling diagnostic settings, the SIEM environment now ingests:
-
-* Identity logs
-* Azure Activity logs
-* Resource logs
-
-This significantly improves the detection capabilities of the SOC environment.
-
-### Operational Considerations
-
-Diagnostic logging increases data ingestion into the Log Analytics Workspace, which can affect cost and retention settings in production environments. For lab environments, log volume is usually minimal.
-
-### Result
-
-The SOC environment now provides monitoring  across both identity services and Azure infrastructure resources. This allows Microsoft Sentinel to detect potential threats affecting cloud resources as well as user identities.
-

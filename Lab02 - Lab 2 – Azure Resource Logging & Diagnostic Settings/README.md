@@ -1,45 +1,52 @@
-## Overview
+# Lab 2 – Azure Resource Logging & Diagnostic Settings
 
-The purpose of Lab 2 is to expand the visibility of the SOC environment by enabling resource-level logging within Microsoft Azure. In Lab 1, security telemetry was collected through data connectors such as Microsoft Entra ID and Microsoft Defender XDR. While these connectors provide valuable identity and security signals, many Azure infrastructure services generate logs that are not automatically forwarded to monitoring systems by default. To ingest these logs into Microsoft Sentinel, diagnostic settings must be configured at the resource level.
+---
 
-This lab demonstrates how Azure platform logs are forwarded to a Log Analytics Workspace where they can be analysed and used for detection and Investigation
+## 📝 Overview
+The purpose of Lab 2 is to expand SOC visibility by enabling **resource‑level diagnostic logging** within Microsoft Azure.  
+In Lab 1, telemetry was collected through identity and security connectors such as Microsoft Entra ID and Microsoft Defender XDR.  
+While these connectors provide strong identity‑centric visibility, **Azure infrastructure services do not automatically forward logs** to Microsoft Sentinel.
 
-## Objectives
+To ingest these logs, **diagnostic settings must be configured at the resource level**.
 
-- Enable diagnostic logging on Azure resources
-- Send infrastructure logs to the Log Analytics Workspace
-- Verify ingestion using KQL queries
-- Expand SOC visibility to include infrastructure activity
+This lab demonstrates how Azure platform logs are forwarded to a Log Analytics Workspace (LAW) where they can be queried, analysed, and used for detection and investigation.
 
-## Environment
+---
 
-- Platform: Microsoft Azure
-- SIEM: Microsoft Sentinel
-- Workspace: LAW-Security-labs
-- Region: UK South
+## 🎯 Objectives
+- Enable diagnostic logging on Azure resources  
+- Forward infrastructure logs to the Log Analytics Workspace  
+- Validate ingestion using KQL queries  
+- Expand SOC visibility to include Azure platform activity  
 
-## Log Sources Enabled
+---
 
-The following Azure resource logs were configured and forwarded to the Log Analytics Workspace for analysis within Microsoft Sentinel:
+## 🧪 Environment
+- **Platform:** Microsoft Azure  
+- **SIEM:** Microsoft Sentinel  
+- **Workspace:** LAW‑Security‑labs  
+- **Region:** UK South  
 
-Azure Storage Blob service logs (StorageBlobLogs)
+---
 
+## 📡 Log Sources Enabled
+The following Azure resource logs were configured and forwarded to the Log Analytics Workspace:
+
+### **Azure Storage – Blob Service Logs (StorageBlobLogs)**  
 These logs capture operations such as:
+- Blob uploads  
+- Blob downloads  
+- Blob deletions  
+- Client IP addresses  
+- Operation timestamps  
 
-- blob uploads
-- blob downloads
-- blob deletions
-- client IP addresses
-- operation timestamps
+This telemetry enables monitoring for suspicious file access patterns, including abnormal download activity or potential data exfiltration. Additional Azure resources such as **Key Vault**, **Virtual Machines**, and **Network Security Groups** can also be onboarded using diagnostic settings to expand infrastructure monitoring coverage.
 
-This telemetry allows monitoring for suspicious file access patterns such as abnormal download activity or potential data exfiltration.
+---
 
-Additional Azure resources such as Azure Key Vault, Azure Virtual Machines, and Azure Network Security Groups can also be onboarded using diagnostic settings to expand infrastructure monitoring coverage.
-
-## Key Skills Demonstrated
-
-- Azure monitoring configuration
-- Security telemetry ingestion
-- Log validation using Kusto Query Language
-- SOC visibility expansion
+## 🧠 Key Skills Demonstrated
+- Azure monitoring configuration  
+- Security telemetry ingestion  
+- KQL‑based log validation  
+- SOC visibility expansion across identity + infrastructure  
 
