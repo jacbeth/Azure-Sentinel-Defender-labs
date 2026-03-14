@@ -78,12 +78,16 @@ Initial Access (TA0001)
 
 Valid Accounts (T1078)
 
-StorageBlobLogs
+## 🔍 Detection 3 — Blob Access Using SAS TokensStorageBlobLogs
+```kql 
+StorageAzureBlobbs
 | where AuthenticationType == "SAS"
 | summarize SASAccessCount = count(), Blobs = make_set(Uri, 5)
     by CallerIpAddress, bin(TimeGenerated, 1h)
+```
 
 ## Why this matters
+
 SAS tokens are powerful and dangerous:
 
 - They bypass credentials
@@ -96,10 +100,14 @@ Defense Evasion (TA0005)
 
 Use of Credentials (T1550)
 
+## 🔍 Detection 4 — Blob Deletions (DeleteBlob)
+
+```kql 
 StorageBlobLogs
 | where OperationName == "DeleteBlob"
 | summarize DeleteCount = count(), DeletedBlobs = make_set(Uri, 10)
     by CallerIpAddress, bin(TimeGenerated, 1h)
+```
 
 ## Why this matters
 Blob deletions may indicate:
