@@ -8,15 +8,12 @@
 * Routing anomalies: None
 * Return‑Path mismatch: None
 * X‑Mailer observations:
-#### The header includes:
-* x-google-dkim-signature, x-gm-message-state and x-gm-features
+#### The header includes: x-google-dkim-signature, x-gm-message-state and x-gm-features
 
 ### Commentary:
-
 This email is a benign test message sent from a legitimate Gmail account. All authentication mechanisms (SPF, DKIM, DMARC) passed, the routing path is clean, and the infrastructure metadata matches Google’s normal sending behaviour. No indicators of spoofing, manipulation, or malicious infrastructure.
 
 ### Screenshots
-
 #### SPF Result/Sender IP 
 ![spf](./screenshots/01-spf-pass.png)
 

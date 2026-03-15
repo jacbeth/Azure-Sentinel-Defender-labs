@@ -29,7 +29,7 @@ This lab builds on the SIEM foundation created in Lab 1 — Sentinel Workspace S
 ## Evidence
 screenshots/header-analysis.png
 
-Analyst notes explaining anomalies
+ notes explaining anomalies
 
 ---
 
