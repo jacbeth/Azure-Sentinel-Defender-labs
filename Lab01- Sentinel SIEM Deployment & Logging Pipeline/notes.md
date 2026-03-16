@@ -1,4 +1,4 @@
-# Lab 01 – Sentinel SIEM Deployment & Azure Logging Pipeline
+# Sentinel SIEM Deployment & Azure Logging Pipeline
 
 ## 🔧 Log Analytics Workspace Creation
 The Log Analytics Workspace serves as the central data repository for Sentinel.
@@ -8,17 +8,15 @@ LAW supports:
 - KQL querying  
 - Analytics rule evaluation  
 - Threat hunting  
+### Screenshot
+![law](./screenshots/1- log-analytics-workspace.png)
 
 ---
 
 ## 🛡️ Microsoft Sentinel Deployment
-Sentinel was enabled on the workspace, creating a SIEM capable of:
-- Log ingestion  
-- Threat detection  
-- Threat hunting  
-- Incident management  
-- Visualisation  
-- Automation (SOAR)  
+Sentinel was enabled on the workspace
+### Screenshot
+![sentinel](./screenshots/2-Microsoft-Sentinel-enabled.png)
 
 ---
 
@@ -26,17 +24,19 @@ Sentinel was enabled on the workspace, creating a SIEM capable of:
 The following connectors were successfully configured and verified:
 
 - Azure Activity  
-- Microsoft Entra ID  
-- Microsoft Defender for Endpoint  
-- Microsoft Defender for Identity  
-- Microsoft Defender XDR  
-- Microsoft Defender for Cloud Apps  
+- Microsoft Entra ID   
 - Microsoft Defender for Office 365  
 
 ### Verification
-- All connectors show **Connected**  
+#### Screenshots
+
+All connectors show **Connected**  
+![data_connectors](./screenshots/3-Data_connectors.png)
+
 - Sign‑in and audit logs confirmed in LAW  
 - Azure Activity logs successfully ingested  
+
+
 
 ---
 
