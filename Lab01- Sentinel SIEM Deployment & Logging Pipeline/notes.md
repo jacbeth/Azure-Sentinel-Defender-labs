@@ -38,8 +38,6 @@ Detection content was installed from the Content Hub, populating the **Analytics
 ### ⚠️ Analytics Rules Configuration
 Templates do **not** generate incidents until converted into **active rules**.
 
-#### Screenshot -  Analytical Rules
-![rulescreated](./screenshots/7-Analytic_rule_creation.png)
 
 ---
 
@@ -51,6 +49,11 @@ Roles assigned:
 - **Log Analytics Reader**  
 - **Security Reader**  
 
+#### Screenshot -  Assigned roles
+![rbac](./screenshots/9-rbac.png)
+
+---
+
 ## 📊 Log Ingestion Validation
 KQL query used to validate ingestion:
 
@@ -58,3 +61,5 @@ KQL query used to validate ingestion:
 union SigninLogs, AuditLogs, AzureActivity
 | summarize LastEvent = max(TimeGenerated) by Type
 ```
+#### Screenshot -  Log Ingestion Validation
+![logingestion](./screenshots/8-kql-results.png)
