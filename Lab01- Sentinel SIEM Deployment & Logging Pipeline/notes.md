@@ -1,6 +1,6 @@
-# Sentinel SIEM Deployment & Azure Logging Pipeline
+## Sentinel SIEM Deployment & Azure Logging Pipeline
 
-## 🔧 Log Analytics Workspace Creation
+### 🔧 Log Analytics Workspace Creation
 The Log Analytics Workspace serves as the central data repository for Sentinel.
 
 LAW supports:
@@ -8,44 +8,37 @@ LAW supports:
 - KQL querying  
 - Analytics rule evaluation  
 - Threat hunting  
-### Screenshot showing Log Analytics Workspace
+#### Screenshot showing Log Analytics Workspace
 ![law](./screenshots/1-log-analytics-workspace.png)
 
 ---
 
-## 🛡️ Microsoft Sentinel Deployment
+### 🛡️ Microsoft Sentinel Deployment
 
-### Screenshot - Sentinel enabled on LAW
+#### Screenshot - Sentinel enabled on LAW
 ![sentinel](./screenshots/2-Microsoft-Sentinel-enabled.png)
 
 ---
 
-## 🔌 Data Connector Configuration
+### 🔌 Data Connector Configuration
 The following connectors were successfully configured and verified:
 
 - Azure Activity  
 - Microsoft Entra ID   
 - Microsoft Defender for Office 365  
 
-### Screenshot - data connectors configured
+#### Screenshot - data connectors configured
 ![data_connectors](./screenshots/3-Data_connectors.png)
 
-- Sign‑in and audit logs confirmed in LAW  
-- Azure Activity logs successfully ingested  
-
-
-
+#### Screenshot - Sign‑in and audit logs in LAW 
+![signin](./screenshots/4-log-verification-kql.png)
+ 
 ---
 
 ## 📦 Content Hub Installation
 Detection content was installed from the Content Hub, populating the **Analytics Rule Templates** section.
-
-Installed solutions include:
-- Microsoft Entra ID  
-- Microsoft Defender for Identity  
-- Microsoft Defender XDR  
-- Microsoft 365 security content  
-- Azure Activity content  
+#### Screenshot - Content Hub Installed
+![contenthub](./screenshots/5-content-hub-installed.png)
 
 **Detection Coverage:** 146 analytics rule templates available.
 
