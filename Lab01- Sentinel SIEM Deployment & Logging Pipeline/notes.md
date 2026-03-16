@@ -38,6 +38,8 @@ Detection content was installed from the Content Hub, populating the **Analytics
 ### ⚠️ Analytics Rules Configuration
 Templates do **not** generate incidents until converted into **active rules**.
 
+#### Screenshot -  Rules Configuration
+![rulesconfig](./screenshots/7-Analytic_rule_creation.png)
 
 ---
 
