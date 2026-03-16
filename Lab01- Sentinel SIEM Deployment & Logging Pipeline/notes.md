@@ -1,13 +1,8 @@
 ## Sentinel SIEM Deployment & Azure Logging Pipeline
 
 ### 🔧 Log Analytics Workspace Creation
-The Log Analytics Workspace serves as the central data repository for Sentinel.
+Sentinel ingests security telemetry through data connectors that send logs directly to the Log Analytics Workspace (LAW).
 
-LAW supports:
-- Log ingestion  
-- KQL querying  
-- Analytics rule evaluation  
-- Threat hunting  
 #### Screenshot showing Log Analytics Workspace
 ![law](./screenshots/1-log-analytics-workspace.png)
 
@@ -21,11 +16,6 @@ LAW supports:
 ---
 
 ### 🔌 Data Connector Configuration
-The following connectors were successfully configured and verified:
-
-- Azure Activity  
-- Microsoft Entra ID   
-- Microsoft Defender for Office 365  
 
 #### Screenshot - data connectors configured
 ![data_connectors](./screenshots/3-Data_connectors.png)
@@ -48,15 +38,6 @@ Detection content was installed from the Content Hub, populating the **Analytics
 ### ⚠️ Analytics Rules Configuration
 Templates do **not** generate incidents until converted into **active rules**.
 
-Rules enabled:
-- Multiple failed sign‑in attempts  
-- Identity‑based detections  
-- Azure role monitoring  
-- MFA anomaly detection  
-- Impossible travel  
-- Suspicious sign‑in behaviour  
-- Threat intelligence‑based rules  
-
 #### Screenshot -  Analytical Rules
 ![rulescreated](./screenshots/7-Analytic_rule_creation.png)
 
@@ -70,7 +51,7 @@ Roles assigned:
 - **Log Analytics Reader**  
 - **Security Reader**  
 
-## 📊  Workspace Health Validation
+## 📊 Log Ingestion Validation
 KQL query used to validate ingestion:
 
 ```kql

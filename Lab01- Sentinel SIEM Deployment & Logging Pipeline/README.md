@@ -1,6 +1,6 @@
+
 # 🌐 Sentinel Deployment & Configuration
 
----
 
 ## 📝 Overview
 The goal of this lab is to deploy Microsoft Sentinel, configure log ingestion, enable detection logic, and establish the foundation for SOC operations including threat hunting and incident response.
@@ -29,7 +29,8 @@ Analytics Rules → Incidents → SOC Investigation
 
 ---
 
-## 🔧 Step 1 – Log Analytics Workspace Creation
+## 📝 Data Connectors & Log Ingestion
+
 The Log Analytics Workspace serves as the central data repository for Sentinel.
 
 LAW supports:
@@ -38,88 +39,64 @@ LAW supports:
 - Analytics rule evaluation  
 - Threat hunting  
 
----
-
-## 🛡️ Step 2 – Microsoft Sentinel Deployment
-Sentinel was enabled on the workspace, creating a SIEM capable of:
-- Log ingestion  
-- Threat detection  
-- Threat hunting  
-- Incident management  
-- Visualisation  
-- Automation (SOAR)  
-
----
-
-## 🔌 Step 3 – Data Connector Configuration
-The following connectors were successfully configured and verified:
+### Identity & Security Connectors Used:
 
 - Azure Activity  
-- Microsoft Entra ID  
-- Microsoft Defender for Endpoint  
-- Microsoft Defender for Identity  
-- Microsoft Defender XDR  
-- Microsoft Defender for Cloud Apps  
+- Microsoft Entra ID   
 - Microsoft Defender for Office 365  
 
-### Verification
-- All connectors show **Connected**  
-- Sign‑in and audit logs confirmed in LAW  
-- Azure Activity logs successfully ingested  
+### Important 
+These sources send logs natively to LAW. They do not require diagnostic settings. Identity and Defender telemetry is high‑value SOC data and forms the backbone of most detection logic.
 
----
+## 📡 Diagnostic Settings
+Diagnostic settings were not enabled in this initial deployment because the lab focused on identity and Defender telemetry. Diagnostic settings are required for Azure resource logs, such as:
+Virtual Machines, Apps and Azure Key Vault
 
-## 📦 Step 4 – Content Hub Installation
-Detection content was installed from the Content Hub, populating the **Analytics Rule Templates** section.
+These logs flow through the Azure Monitor diagnostic pipeline into LAW.
 
-Installed solutions include:
-- Microsoft Entra ID  
-- Microsoft Defender for Identity  
-- Microsoft Defender XDR  
-- Microsoft 365 security content  
-- Azure Activity content  
+Key takeaway:  
+Identity logs ≠ diagnostic settings
+Resource logs = diagnostic settings required
 
-**Detection Coverage:** 146 analytics rule templates available.
+## 📦 Analytics Rule Templates
+Installing security solutions from the Content Hub populates the Analytics Rule Templates library.
 
----
+### Important 
+Templates do not generate alerts until converted into active analytics rules
+Content Hub installation is required before templates appear
 
-## ⚠️ Step 5 – Analytics Rules Configuration
-Templates do **not** generate incidents until converted into **active rules**.
+146 rule templates available for activation.
 
-Rules enabled:
-- Multiple failed sign‑in attempts  
-- Identity‑based detections  
-- Azure role monitoring  
-- MFA anomaly detection  
-- Impossible travel  
-- Suspicious sign‑in behaviour  
-- Threat intelligence‑based rules  
+## 🔐 RBAC Configuration
+Role‑based access control was configured to support least‑privilege SOC operations.
 
----
+### Roles Assigned
+- Sentinel Contributor – manage analytics rules, incidents, automation
+- Log Analytics Reader – query and analyse logs
+- Security Reader – view alerts and security posture
 
-## 🔐 Step 6 – Access Control (RBAC)
-Least‑privilege access was configured on the workspace.
+### Elevated Access Warning
+Azure displayed a notification indicating that elevated access had been temporarily enabled at the tenant level.
 
-Roles assigned:
-- **Sentinel Contributor**  
-- **Log Analytics Reader**  
-- **Security Reader**  
+This occurs when:
 
----
+- Administrators elevate permissions to assign roles
+- Privileged Identity Management (PIM) activates a role
+- Tenant‑wide changes require higher privileges
 
-## 📊 Step 7 – Workspace Health Validation
-KQL query used to validate ingestion:
+NB:  Elevated access can be disabled once configuration is complete.
 
-```kql
-union SigninLogs, AuditLogs, AzureActivity
-| summarize LastEvent = max(TimeGenerated) by Type
-```
+## 📊 Log Ingestion Validation
+Log ingestion was validated using KQL queries in the Log Analytics Workspace.
+Outcome:  All configured data sources successfully ingested into LAW.
 
----
-
-## 🧠 Lessons Learned
+## 🧠 Lessons learnt
+- Sentinel is now part of the Microsoft Defender unified SOC platform
+- Identity and Defender logs ingest natively without diagnostic settings
 - Data connectors must be configured before rule templates appear
-- Content Hub installation is required for detection logic
-- Sentinel management has transitioned to the Microsoft Defender portal
+- Content Hub must be installed before analytics rules appear
+- Diagnostic settings are required for Azure resource logs
+- Analytics rule templates must be activated to generate incidents
+- RBAC must follow least‑privilege principles
+- KQL validation is essential to confirm ingestion
 
-This lab establishes the core SIEM infrastructure for future detection engineering and incident response labs
