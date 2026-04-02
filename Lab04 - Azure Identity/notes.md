@@ -16,7 +16,7 @@ Ran a basic password spray KQL
 
 #### KQL Query Used
 
-SigninLogs
+'''SigninLogs
 | where ResultType != 0 and UserPrincipalName contains "test-"
 | summarize FailedAttempts = count() by UserPrincipalName, IPAddress
 | order by FailedAttempts desc
@@ -25,9 +25,7 @@ SigninLogs
 
 Screenshot of query results
 
-!\[password-spray-kql](./screenshots/1-password-spray-analytical-rule-fired.png)
+!\[passwordspray](./screenshots/1-password-spray-analytical-rule-fired.png)
 
-
-
-Saved as an analytics rule
+#### Saved as an analytics rule
 
