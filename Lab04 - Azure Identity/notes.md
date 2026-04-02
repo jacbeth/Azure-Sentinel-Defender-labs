@@ -25,9 +25,9 @@ SigninLogs
 
 Screenshot of query results
 
-!\[password-spray-kql](./screenshots/password spray analytical rule fired.png)
+!\[password-spray-kql](./screenshots/1-password-spray-analytical-rule-fired.png)
 
 
 
-saved as query, then went to defender analytics and saved as an analytics rule
+Saved as an analytics rule
 
