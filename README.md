@@ -1,8 +1,8 @@
-## Azure Sentinel SOC Lab Series
+## Azure Defender/Sentinel Labs
 
 # Overview
 
-This repository documents a hands-on Security Operations Center (SOC) lab built using Microsoft Sentinel (SIEM) within Microsoft Azure. The objective of this project is to simulate a real-world SOC environment from initial deployment through detection , incident investigation, and threat hunting.
+This repository documents an initial deployment of an Azure security lab through detection , incident investigation, and threat hunting.
 
 This lab demonstrates practical experience with:
 
@@ -12,8 +12,4 @@ This lab demonstrates practical experience with:
 * Identity threat monitoring
 * Incident investigation workflows
 * KQL-based threat hunting
-
-
-
-
 
