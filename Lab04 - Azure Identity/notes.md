@@ -19,7 +19,7 @@ Ran a basic password spray KQL
 ```SigninLogs
 | where ResultType != 0 and UserPrincipalName contains "test-"
 | summarize FailedAttempts = count() by UserPrincipalName, IPAddress
-| order by FailedAttempts desc
+| order by FailedAttempts desc```
 
 #### 
 
