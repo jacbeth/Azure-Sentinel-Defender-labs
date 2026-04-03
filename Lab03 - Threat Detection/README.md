@@ -1,28 +1,24 @@
 # Lab 3 – Azure Threat Detection (StorageBlobLogs + AzureActivity)
 
----
-
 ## 📝 Overview
-Azure Storage is a high‑value target for attackers due to its use for backups, logs, application data, and sensitive files.  
-This lab focuses on identifying suspicious access patterns within Azure Storage accounts using **Microsoft Sentinel** and **KQL**.
-
-The goal is to simulate threat detection work by analysing blob access logs, identifying anomalies, and mapping detections to MITRE ATT&CK.
+Azure Storage is a high value target for attackers due to its use for backups, logs, application data, and sensitive files.  
+The goal of the lab is to simulate threat detection by analysing blob access logs, identifying anomalies, and mapping detections to MITRE ATT&CK.
 
 ---
 
 ## 📡 Data Sources
 This lab primarily uses:
 
-### **StorageBlobLogs**
-Operational logs for blob access, including:
+### StorageBlobLogs
+Including:
 - Blob downloads (GetBlob)  
 - Blob deletions (DeleteBlob)  
 - Authentication type (Key, OAuth, SAS)  
 - Caller IP address  
 - URI and container information  
 
-### **AzureActivity**
-Control‑plane operations such as:
+### AzureActivity
+Including:
 - SAS token creation  
 - Storage account key regeneration  
 - Network rule changes  
@@ -51,9 +47,8 @@ Repeated downloads from a single IP may indicate:
 
 ## MITRE ATT&CK:
 
-Exfiltration (TA0010)
-
-Exfiltration Over Web Services (T1567)
+- Exfiltration (TA0010)
+- Exfiltration Over Web Services (T1567)
 
 ## 🔍 Detection 2 — Blob Access from Unusual or Non‑Corporate IP Ranges
 
@@ -69,16 +64,14 @@ StorageBlobLogs
 
 ## Why this matters
 Unexpected IPs may indicate:
-
 - Credential compromise
 - SAS token leakage
 - External reconnaissance
 
 ## MITRE ATT&CK:
 
-Initial Access (TA0001)
-
-Valid Accounts (T1078)
+- Initial Access (TA0001)
+- Valid Accounts (T1078)
 
 ## 🔍 Detection 3 — Blob Access Using SAS TokensStorageBlobLogs
 ```kql 
@@ -89,18 +82,15 @@ StorageAzureBlobbs
 ```
 
 ## Why this matters
-
-SAS tokens are powerful and dangerous:
-
+SAS tokens are powerful because:
 - They bypass credentials
 - They grant scoped access
 - If leaked, they enable silent data access
 
 ## MITRE ATT&CK:
 
-Defense Evasion (TA0005)
-
-Use of Credentials (T1550)
+- Defense Evasion (TA0005)
+- Use of Credentials (T1550)
 
 ## 🔍 Detection 4 — Blob Deletions (DeleteBlob)
 
@@ -120,9 +110,8 @@ Blob deletions may indicate:
 
 ## MITRE ATT&CK:
 
-Impact (TA0040)
-
-Data Destruction (T1485)
+- Impact (TA0040)
+- Data Destruction (T1485)
 
 ## 📌 Findings
 
