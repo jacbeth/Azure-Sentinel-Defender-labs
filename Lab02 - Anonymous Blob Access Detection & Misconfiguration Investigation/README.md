@@ -36,48 +36,21 @@ Fields of Interest in Logs
 • 	CallerIAddress
 • 	Uri
 
-
-### 5. Detection Queries (KQL)
-#### 5.1 Anonymous Access Detection
-```
-StorageBlobLogs
-| where AuthenticationType == "Anonymous"
-| summarize AccessCount = count(), Blobs = make_set(Uri, 10)
-    by CallerIpAddress, bin(TimeGenerated, 1h)
-```
-
-#### 5.2 Container Enumeration Detection  
-```
-StorageBlobLogs
-| where Uri contains "comp=list"
-| summarize ListOperations = count()
-    by CallerIpAddress, bin(TimeGenerated, 1h)
-```
-
-#### 5.3 High‑Volume Anonymous Reads
-```
-StorageBlobLogs
-| where AuthenticationType == "Anonymous"
-| summarize TotalReads = count()
-    by bin(TimeGenerated, 1h)
-| where TotalReads > 20
-```
-
-### 6. Findings
-- Anonymous blob access was successfully logged
-- All access originated from the expected test IP address
-- High‑volume reads were detected during testing
-- No unexpected IPs or suspicious access patterns were observed
+### 5. Findings
+ Anonymous blob access was successfully logged.
+- All access originated from the expected test IP address.
+- Container listing operations (comp=list) were captured, showing that public access allowed enumeration of blob contents.
+- High volume reads were detected during testing, confirming that repeated anonymous access is fully logged.
+- No unexpected IPs or suspicious access patterns were observed.
 
 This confirms that Azure logs provide full visibility into anonymous access events.
 
-### 7. Commentary
+### 6. Commentary
 Azure logs anonymous access clearly, including:
 - Caller IP
 - Timestamp
 - Blob URI
 - Operation type
 
-The lab mirrors real world cloud incidents where public access leads to data exposure. Anonymous reads, container listings, and repeated access attempts were all captured as expected.
-#### Conclusion:
-Azure provides sufficient telemetry to detect misconfigurations — as long as diagnostic settings are correctly configured.
+#### 7. Conclusion:
+Azure logs anonymous access, including the caller IP, timestamp, and blob URI, which is essential for investigations dealing with misconfigurations that expose data publicly. The behaviour observed in this lab matches real‑world cloud incidents where public containers lead to data exposure. This demonstrates that Azure provides sufficient telemetry to detect misconfigurations, provided diagnostic settings are correctly configured. 
