@@ -1,8 +1,8 @@
-## Lab 4: Anonymous Blob Access Detection & Misconfiguration Analysis
+## Lab 2: Anonymous Blob Access Detection & Misconfiguration Analysis
 
 ### Container Configuration
 
-- Set Public Access Level Blob containerto intentionally allow anonymous read access.
+- Set Public Access Level Blob container to intentionally allow anonymous read access.
 - Uploaded a test file (test.txt) to generate activity.
 
 Important: Public access is a common real‑world misconfiguration that exposes data without authentication.
