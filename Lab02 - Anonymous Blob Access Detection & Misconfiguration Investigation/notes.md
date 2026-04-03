@@ -8,6 +8,9 @@ Demonstrate how Azure logs unauthenticated blob access when a storage container 
 - Set Public Access Level Blob container to intentionally allow anonymous read access.
 - Uploaded a test file (test.txt) to generate activity.
 
+![anonymousblob](./screenshots/1-blob-set-to-anonymous-access-enabled.png)
+
+
 Important: Public access is a common real world misconfiguration that exposes data without authentication.
 
 ### 3. Anonymous Access Testing
