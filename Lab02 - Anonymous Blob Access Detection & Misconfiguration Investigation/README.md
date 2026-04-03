@@ -4,31 +4,23 @@
 Demonstrate how Azure logs unauthenticated blob access when a storage container is misconfigured with public access enabled, and that Azure can detect exposure events.
 
 ### 2. Environment Setup & Misconfiguration
-#### Container Configuration
-• 	Set the Public Access Level of the blob container to allow anonymous read access
-• 	Uploaded a test file () to generate activity
+• 	Set the Public Access Level of the blob container to allow anonymous read access and uploaded a test file to generate activity.
 
 #### Why this matters:
 Public blob access is a common misconfiguration that exposes sensitive data without authentication. 
 
 ### 3. Anonymous Access Testing
-Actions Performed
-• 	Copied the blob URL directly from the Azure Portal
-• 	Opened a private/incognito browser window
-• 	Accessed the blob without authentication
-• 	Refreshed the blob repeatedly to generate multiple anonymous read events
+• 	Accessed the blob without authentication and refreshed the blob repeatedly to generate multiple anonymous read events.
 
 #### Key Observations
 • 	Anonymous access requires no SAS token, no keys, and no Azure AD credentials
-• 	Each access attempt generated a corresponding log entry in 
+• 	Each access attempt generated a corresponding log entry.
 
 ### 4. Log Ingestion Verification
 Diagnostic settings were confirmed to be sending:
 • 	StorageBlobLogs
 • 	StorageRead
 • 	StorageWrite
-
-Waited 5 minutes for ingestion.
 
 Fields of Interest in Logs
 • 	AuthenticationType == "Anonymous"
