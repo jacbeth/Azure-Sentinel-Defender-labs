@@ -15,11 +15,11 @@ Demonstrate how Azure logs unauthenticated blob access when a storage container 
 
 ### 3. Anonymous Access Testing
 
-- Copied the blob URL directly from the Azure portal.
-- Opened a private/incognito browser window.
-- Accessed the blob successfully without authentication, confirming the container was publicly accessible.
-- Refreshed the blob multiple times to generate repeated anonymous read events.
-- Observation: Anonymous access does not require SAS tokens, keys, or Azure AD credentials.
+- Copied the blob URL to a private browser window and refreshed multiple times to generate repeated anonymous events. The blob was accessed successfully without authentication, confirming the container was publicly accessible.
+
+#### **Observations**
+- Anonymous access does not require SAS tokens, keys, or Azure AD credentials.
+- When accessing the blob anonymously, the browser prompted a ‘Save As’ dialog box. This confirms that the blob was publicly accessible without authentication.
 
 ### 4. Log Ingestion Verification
 
