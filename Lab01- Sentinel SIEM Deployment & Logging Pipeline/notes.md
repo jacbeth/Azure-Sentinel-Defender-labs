@@ -26,7 +26,7 @@ Sentinel ingests security telemetry through data connectors that send logs direc
 ---
 
 ## 📦 Content Hub Installation
-Detection content was installed from the Content Hub, populating the **Analytics Rule Templates** section.
+Detection content was installed from the Content Hub, populating the Analytics Rule Templates section.
 #### Screenshot - Content Hub Installed
 ![contenthub](./screenshots/5-content-hub-installed.png)
 
@@ -36,7 +36,7 @@ Detection content was installed from the Content Hub, populating the **Analytics
 ---
 
 ### ⚠️ Analytics Rules Configuration
-Templates do **not** generate incidents until converted into **active rules**.
+Templates do not generate incidents until converted into active rules.
 
 #### Screenshot -  Rules Configuration
 ![rulesconfig](./screenshots/7-Analytic_rule_creation.png)

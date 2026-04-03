@@ -3,9 +3,9 @@
 
 
 ## 📝 Overview
-The goal of this lab is to deploy Microsoft Sentinel, configure log ingestion, enable detection logic, and establish the foundation for SOC operations including threat hunting and incident response.
+The goal of this lab was to deploy Microsoft Sentinel, configure log ingestion, enable detection logic, in order to continue with further labs including threat hunting and incident response.
 
-Sentinel was deployed and managed through the **Microsoft Defender portal (security.microsoft.com)**, reflecting Microsoft’s unified security operations platform.
+Sentinel was deployed and managed through the Microsoft Defender portal (security.microsoft.com), (Microsoft is currently unifying it's security operations platform).
 
 ---
 
@@ -17,21 +17,11 @@ Sentinel was deployed and managed through the **Microsoft Defender portal (secur
 - **Region:** UK South  
 - **Retention:** 30 days  
 
-### Log Flow
-Security Data Sources  
-(Microsoft Entra ID, Defender XDR, Azure Activity)  
-  ↓  
-**Log Analytics Workspace (LAW‑Security‑labs)**  
-  ↓  
-**Microsoft Sentinel**  
-  ↓  
-Analytics Rules → Incidents → SOC Investigation  
-
 ---
 
 ## 📝 Data Connectors & Log Ingestion
 
-The Log Analytics Workspace serves as the central data repository for Sentinel.
+The Log Analytics Workspace acts as the data repository for Sentinel.
 
 LAW supports:
 - Log ingestion  
@@ -45,11 +35,9 @@ LAW supports:
 - Microsoft Entra ID   
 - Microsoft Defender for Office 365  
 
-### Important 
-These sources send logs natively to LAW. They do not require diagnostic settings. Identity and Defender telemetry is high‑value SOC data and forms the backbone of most detection logic.
-
 ## 📡 Diagnostic Settings
-Diagnostic settings were not enabled in this initial deployment because the lab focused on identity and Defender telemetry. Diagnostic settings are required for Azure resource logs, such as:
+Diagnostic settings were not enabled because the lab focused on identity and Defender telemetry, which send logs natively to the LAW. 
+Diagnostic settings are required for Azure resource logs, such as:
 Virtual Machines, Apps and Azure Key Vault
 
 These logs flow through the Azure Monitor diagnostic pipeline into LAW.
