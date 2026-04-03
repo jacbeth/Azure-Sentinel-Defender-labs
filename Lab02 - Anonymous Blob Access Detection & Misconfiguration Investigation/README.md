@@ -4,29 +4,20 @@
 Demonstrate how Azure logs unauthenticated blob access when a storage container is misconfigured with public access enabled, and that Azure can detect exposure events.
 
 ### 2. Environment Setup & Misconfiguration
-• 	Set the Public Access Level of the blob container to allow anonymous read access and uploaded a test file to generate activity.
+Public Access Level of the blob container was set to allow anonymous read access and a test file was uploaded to generate activity.
 
 #### Why this matters:
 Public blob access is a common misconfiguration that exposes sensitive data without authentication. 
 
 ### 3. Anonymous Access Testing
-• 	Accessed the blob without authentication and refreshed the blob repeatedly to generate multiple anonymous read events.
+Accessed the blob without authentication and refreshed the blob repeatedly to generate multiple anonymous read events.
 
 #### Key Observations
 • 	Anonymous access requires no SAS token, no keys, and no Azure AD credentials
 • 	Each access attempt generated a corresponding log entry.
 
 ### 4. Log Ingestion Verification
-Diagnostic settings were confirmed to be sending:
-• 	StorageBlobLogs
-• 	StorageRead
-• 	StorageWrite
-
-Fields of Interest in Logs
-• 	AuthenticationType == "Anonymous"
-• 	OperationName == "GetBlob"
-• 	CallerIAddress
-• 	Uri
+Diagnostic settings were confirmed to be sending: StorageBlobLogs, StorageRead and StorageWrite
 
 ### 5. Findings
  Anonymous blob access was successfully logged.
@@ -45,4 +36,4 @@ Azure logs anonymous access clearly, including:
 - Operation type
 
 #### 7. Conclusion:
-Azure logs anonymous access, including the caller IP, timestamp, and blob URI, which is essential for investigations dealing with misconfigurations that expose data publicly. The behaviour observed in this lab matches real‑world cloud incidents where public containers lead to data exposure. This demonstrates that Azure provides sufficient telemetry to detect misconfigurations, provided diagnostic settings are correctly configured. 
+Azure logs anonymous access, including the caller IP, timestamp, and blob URI, which is essential for investigations dealing with misconfigurations that expose data publicly. The behaviour observed in this lab matches real world cloud incidents where public containers lead to data exposure. This demonstrates that Azure provides sufficient telemetry to detect misconfigurations, provided diagnostic settings are correctly configured. 
