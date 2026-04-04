@@ -22,7 +22,7 @@ The lab demonstrates how anonymous public access to Azure Blob Storage can be de
 3. 	Upload test file
 4. 	Access blobs anonymously to simulate exploitation
 5. 	Validate logs 
-6. 	Build a KQL query to detect anonymous access
+6. 	Build KQL queries to detect anonymous access
 7. 	Disable public access and validate remediation
 
 ### 🛡️ Detection Queries (KQL)
