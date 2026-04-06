@@ -54,27 +54,13 @@ Installing security solutions from the Content Hub populates the Analytics Rule 
 ### Key Takeaway 
 Content Hub installation is required before templates appear and templates do not generate alerts until converted into active analytics rules. 
 
-- 146 rule templates available for activation.
-
----
+--- 
 
 ## 🔐 RBAC Configuration
 Role‑based access control was configured to support least privilege principle.
 
-### Roles Assigned
-- Sentinel Contributor – manage analytics rules, incidents, automation
-- Log Analytics Reader – query and analyse logs
-- Security Reader – view alerts and security posture
-
-### Elevated Access Warning
-Azure displayed a notification indicating that elevated access had been temporarily enabled at the tenant level.
-
-This occurs when:
-- Administrators elevate permissions to assign roles
-- Privileged Identity Management (PIM) activates a role
-- Tenant‑wide changes require higher privileges
-
-NB:  Elevated access can be disabled once configuration is complete.
+Roles Assigned: 
+- Sentinel Contributor, Log Analytics Reader, Security Reader
 
 ---
 

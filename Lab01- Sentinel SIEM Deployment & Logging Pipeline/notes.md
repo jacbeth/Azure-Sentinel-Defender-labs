@@ -1,21 +1,17 @@
-## Sentinel SIEM Deployment & Azure Logging Pipeline
+## Sentinel SIEM Deployment & Azure Logging 
 
-### 🔧 Log Analytics Workspace Creation
-Sentinel ingests security telemetry through data connectors that send logs directly to the Log Analytics Workspace (LAW).
+### 1. Log Analytics Workspace Creation
+Data connector set up to send logs directly to the Log Analytics Workspace (LAW).
 
-#### Screenshot showing Log Analytics Workspace
 ![law](./screenshots/1-log-analytics-workspace.png)
+#### Screenshot showing Log Analytics Workspace
 
----
-
-### 🛡️ Microsoft Sentinel Deployment
+### 2. Microsoft Sentinel Deployment
 
 #### Screenshot - Sentinel enabled on LAW
 ![sentinel](./screenshots/2-Microsoft-Sentinel-enabled.png)
 
----
-
-### 🔌 Data Connector Configuration
+### 3. Data Connector Configuration
 
 #### Screenshot - data connectors configured
 ![data_connectors](./screenshots/3-Data_connectors.png)
@@ -23,40 +19,43 @@ Sentinel ingests security telemetry through data connectors that send logs direc
 #### Screenshot - Sign‑in and audit logs in LAW 
 ![signin](./screenshots/4-log-verification-kql.png)
  
----
-
-## 📦 Content Hub Installation
+### 4. Content Hub Installation
 Detection content was installed from the Content Hub, populating the Analytics Rule Templates section.
+
 #### Screenshot - Content Hub Installed
 ![contenthub](./screenshots/5-content-hub-installed.png)
 
 #### Screenshot -  146 analytics rule templates available
 ![rulesavailable](./screenshots/6-analytics-rule-templates.png)
 
----
-
-### ⚠️ Analytics Rules Configuration
-Templates do not generate incidents until converted into active rules.
+### 5. Analytics Rules Configuration
+Templates do **not** generate incidents until converted into **active rules**.
 
 #### Screenshot -  Rules Configuration
 ![rulesconfig](./screenshots/7-Analytic_rule_creation.png)
 
----
+### 6. Access Control (RBAC)
+Role‑based access control was configured to support least privilege principle.
 
-### 🔐 Access Control (RBAC)
-Least‑privilege access was configured on the workspace.
+### Roles Assigned: 
+- Sentinel Contributor – manage analytics rules, incidents, automation
+- Log Analytics Reader – query and analyse logs
+- Security Reader – view alerts and security posture
 
-Roles assigned:
-- **Sentinel Contributor**  
-- **Log Analytics Reader**  
-- **Security Reader**  
+### Elevated Access Warning
+Azure displayed a notification indicating that elevated access had been temporarily enabled at the tenant level.
+
+This occurs when:
+- Administrators elevate permissions to assign roles
+- Privileged Identity Management (PIM) activates a role
+- Tenant‑wide changes require higher privileges
+
+NB:  Elevated access can be disabled once configuration is complete.
 
 #### Screenshot -  Assigned roles
 ![rbac](./screenshots/9-rbac.png)
 
----
-
-## 📊 Log Ingestion Validation
+### 7.Log Ingestion Validation
 KQL query used to validate ingestion:
 
 ```kql
