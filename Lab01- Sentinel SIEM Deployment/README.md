@@ -28,6 +28,9 @@ LAW supports:
 - Analytics rule evaluation  
 - Threat hunting  
 
+![law](../SOC_screenshots/Lab01- Sentinel SIEM Deployment/1-log-analytics-workspace.png)
+##### Screenshot showing Log Analytics Workspace
+
 ### Identity & Security Connectors Used:
 
 - Azure Activity  
