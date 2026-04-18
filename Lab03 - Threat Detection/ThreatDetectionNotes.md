@@ -4,7 +4,7 @@
 Azure Storage is a high value target for attackers due to its use for backups, logs, application data, and sensitive files.  
 The goal of the lab is to simulate threat detection by analysing blob access logs, identifying anomalies, and mapping detections to MITRE ATT&CK.
 
-### 📡 Data Sources
+### Data Sources
 #### StorageBlobLogs
 - Blob downloads (GetBlob)  
 - Blob deletions (DeleteBlob)  
@@ -44,7 +44,7 @@ StorageBlobLogs
 #### MITRE ATT&CK MAPPING:
 - Exfiltration (TA0010) and Exfiltration Over Web Services (T1567)
 ### Detection 2 — Blob Access from Unusual or Non‑Corporate IP Ranges
-Detects blob access from non‑private IP ranges. 
+Detects blob access from non‑private IP ranges. Unexpected IPs may indicate credential compromise or SAS token leakage.
 ```kql
 StorageBlobLogs
 | where OperationName == "GetBlob"
@@ -54,10 +54,10 @@ StorageBlobLogs
 | summarize AccessCount = count() by CallerIpAddress, bin(TimeGenerated, 1h)
 | where AccessCount > 0
 ``` 
-- Unexpected IPs may indicate credential compromise, SAS token leakage or external reconnaissance
 #### MITRE ATT&CK MAPPING:
 - Initial Access (TA0001) and Valid Accounts (T1078)
 ### Detection 3 — Blob Access Using SAS TokensStorageBlobLogs
+Identifies blob access authenticated using SAS tokens originating from a single public IP, access counts ranged from 1 to 65 per hour and container listing operations confirmed SAS enumeration capability
 ```kql 
 StorageAzureBlobbs
 | where AuthenticationType == "SAS"
@@ -77,18 +77,18 @@ StorageBlobLogs
 - Blob deletions may indicate: Cleanup after data theft, malicious tampering or attempts to hide activity
 ## MITRE ATT&CK MAPPING:
 - Impact (TA0040) and Data Destruction (T1485)
-### Screenshots
+#### Screenshots
 ##### StorageBlobLogs verification
 ![blob-verification](./screenshots/1-storagebloblogs-query.png)
 ##### AzureActivity verification
 ![azureactivity-verification](./screenshots/2-azureactivity-query.png)
 ##### Both tables appeared in the workspace, confirming the environment was ready for detection engineering.
 ![tables-in -workspace](./screenshots/3-tableslist.png)
-
-### Findings
-- Repeated downloads from a single IP
-- SAS token usage from a public IP
-- Blob deletions performed by a test account
-These behaviours clearly distinguish normal vs suspicious access patterns
-### 🪞 Conclusion
-This lab strengthened my understanding of cloud storage attack surfaces and the importance of monitoring both data‑plane and control‑plane activity. Even small anomalies — such as repeated downloads or unexpected IPs — can be early indicators of compromise.
+#### Results
+- Repeated downloads from a single IP address, SAS token usage from a public IP address and blob deletions performed by a test account. These behaviours clearly distinguish normal vs suspicious access patterns
+#### Summary
+This lab demonstrated: 
+- StorageBlobLogs ingestion
+- AzureActivity ingestion
+- Behavioural detections for blob access
+- MITRE ATT&CK‑aligned threat detection logic
