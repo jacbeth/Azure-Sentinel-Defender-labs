@@ -75,7 +75,7 @@ StorageBlobLogs
     by CallerIpAddress, bin(TimeGenerated, 1h)
 ```
 - Blob deletions may indicate: Cleanup after data theft, malicious tampering or attempts to hide activity
-## MITRE ATT&CK MAPPING:
+### MITRE ATT&CK MAPPING:
 - Impact (TA0040) and Data Destruction (T1485)
 #### Screenshots
 ##### StorageBlobLogs verification
@@ -84,6 +84,16 @@ StorageBlobLogs
 ![azureactivity-verification](./screenshots/2-azureactivity-query.png)
 ##### Both tables appeared in the workspace, confirming the environment was ready for detection engineering.
 ![tables-in -workspace](./screenshots/3-tableslist.png)
+##### Deletion query results
+![deletion-query](./screenshots/4-detection1-query-results.png)
+##### Repeated Blob Downloads from the Same IP query results
+![detection1-query](./screenshots/5-detection1-storage-activity.png)
+##### Detection query results
+![detection2-query](./screenshots/6-detection2-query-results.png)
+##### Blob Access Using SAS Tokens query results
+![detection3-query](./screenshots/7-detection3-query-results.png)
+##### Blob deletions query results
+![detection4-query](./screenshots/8-detection4-query-results.png)
 #### Results
 - Repeated downloads from a single IP address, SAS token usage from a public IP address and blob deletions performed by a test account. These behaviours clearly distinguish normal vs suspicious access patterns
 #### Summary
