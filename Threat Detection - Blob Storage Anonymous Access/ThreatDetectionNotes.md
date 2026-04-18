@@ -12,7 +12,7 @@ The goal of the lab is to simulate threat detection by analysing blob access log
 - SAS token creation - occurs automatically when certain actions are taken e.g. Click “Download”, Click “Open in Explorer 
 
 #### Actions Performed
-- Uploaded several test blobs, repeatedly downloaded the same blob (10–30 times), generated a SAS token and accessed blobs using SAS and deleted blobs to generate DeleteBlob events. NB: StorageBlobLogs only appear when blob operations occur.  AzureActivity logs provide context around SAS creation, key regeneration, RBAC changes, etc.
+- Uploaded several test blobs, repeatedly downloaded the same blob (10–30 times), Azure Portal generated a SAS token during blob downloads and accessed blobs using SAS and deleted blobs to generate DeleteBlob events. NB: StorageBlobLogs only appear when blob operations occur.  AzureActivity logs provide context around SAS creation, key regeneration, RBAC changes, etc.
 #### Verification of Log Ingestion
 ##### Queries Run
 ```kql
@@ -48,10 +48,10 @@ StorageBlobLogs
 ``` 
 ##### MITRE ATT&CK MAPPING:
 Initial Access (TA0001) and Valid Accounts (T1078)
-#### Detection 3 — Blob Access Using SAS TokensStorageBlobLogs
-Identifies blob access authenticated using SAS tokens originating from a single public IP, 
+#### Detection 3 — Blob Access Using SAS Tokens StorageBlobLogs
+Identifies blob access authenticated using SAS tokens originating from a single public IP 
 ```kql 
-StorageAzureBlobbs
+StorageBlobLogs
 | where AuthenticationType == "SAS"
 | summarize SASAccessCount = count(), Blobs = make_set(Uri, 5)
     by CallerIpAddress, bin(TimeGenerated, 1h)
