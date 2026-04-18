@@ -34,7 +34,7 @@ StorageBlobLogs
 ```
 - Repeated downloads from a single IP could indicate: automated scripts, credential misuse or early stage data exfiltration
 ###### MITRE ATT&CK MAPPING:
-- Exfiltration (TA0010) and Exfiltration Over Web Services (T1567)
+Exfiltration (TA0010) and Exfiltration Over Web Services (T1567)
 #### Detection 2 — Blob Access from Unusual or Non‑Corporate IP Ranges
 Detects blob access from non‑private IP ranges. Unexpected IPs may indicate credential compromise or SAS token leakage.
 ```kql
@@ -47,9 +47,9 @@ StorageBlobLogs
 | where AccessCount > 0
 ``` 
 ##### MITRE ATT&CK MAPPING:
-- Initial Access (TA0001) and Valid Accounts (T1078)
+Initial Access (TA0001) and Valid Accounts (T1078)
 #### Detection 3 — Blob Access Using SAS TokensStorageBlobLogs
-Identifies blob access authenticated using SAS tokens originating from a single public IP, access counts ranged from 1 to 65 per hour and container listing operations confirmed SAS enumeration capability
+Identifies blob access authenticated using SAS tokens originating from a single public IP, 
 ```kql 
 StorageAzureBlobbs
 | where AuthenticationType == "SAS"
@@ -58,7 +58,7 @@ StorageAzureBlobbs
 ```
 - SAS tokens are powerful because: they bypass credentials, they grant scoped access and if leaked, they enable silent data access
 ##### MITRE ATT&CK MAPPING:
-- Defense Evasion (TA0005) and Use of Credentials (T1550)
+Defense Evasion (TA0005) and Use of Credentials (T1550)
 #### Detection 4 — Blob Deletions
 ```kql 
 StorageBlobLogs
@@ -68,7 +68,7 @@ StorageBlobLogs
 ```
 - Blob deletions may indicate: Cleanup after data theft, malicious tampering or attempts to hide activity
 ##### MITRE ATT&CK MAPPING:
-- Impact (TA0040) and Data Destruction (T1485)
+Impact (TA0040) and Data Destruction (T1485)
 #### Screenshots
 ##### StorageBlobLogs verification
 ![blob-verification](./screenshots/1-storagebloblogs-query.png)
