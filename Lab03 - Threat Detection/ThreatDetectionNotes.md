@@ -84,9 +84,9 @@ StorageBlobLogs
 ![azureactivity-verification](./screenshots/2-azureactivity-query.png)
 ##### Both tables appeared in the workspace, confirming the environment was ready for detection engineering.
 ![tables-in -workspace](./screenshots/3-tableslist.png)
-##### Deletion query results
+##### Repeated Blob Downloads from the Same IP
 ![deletion-query](./screenshots/4-detection1-query-results.png)
-##### Repeated Blob Downloads from the Same IP query results
+##### Blob Access from Unusual or Non‑Corporate IP Ranges
 ![detection1-query](./screenshots/5-detection1-storage-activity.png)
 ##### Detection query results
 ![detection2-query](./screenshots/6-detection2-query-results.png)
