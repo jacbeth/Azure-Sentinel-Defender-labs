@@ -87,8 +87,6 @@ StorageBlobLogs
 ##### Repeated Blob Downloads from the Same IP
 ![deletion-query](./screenshots/4-detection1-query-results.png)
 ##### Blob Access from Unusual or Non‑Corporate IP Ranges
-![detection1-query](./screenshots/5-detection1-storage-activity.png)
-##### Detection query results
 ![detection2-query](./screenshots/6-detection2-query-results.png)
 ##### Blob Access Using SAS Tokens query results
 ![detection3-query](./screenshots/7-detection3-query-results.png)
